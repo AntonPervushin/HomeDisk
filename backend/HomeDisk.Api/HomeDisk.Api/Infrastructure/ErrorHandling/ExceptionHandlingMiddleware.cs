@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using HomeDisk.Api.Common.ErrorHandling;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ namespace HomeDisk.Api.Infrastructure.ErrorHandling
     {
         private readonly ILogger<ExceptionHandlingMiddleware> _logger;
         public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger) => _logger = logger;
+
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
@@ -42,6 +44,7 @@ namespace HomeDisk.Api.Infrastructure.ErrorHandling
             exception switch
             {
                 ValidationException => StatusCodes.Status400BadRequest,
+                BusinessException => StatusCodes.Status400BadRequest,
                 AuthenticationException => StatusCodes.Status401Unauthorized,
                 AuthorizationException => StatusCodes.Status403Forbidden,
                 _ => StatusCodes.Status500InternalServerError

@@ -12,7 +12,12 @@ namespace HomeDisk.Api.Persistence
         {
             foreach (var role in (AppIdentityRole[])Enum.GetValues(typeof(AppIdentityRole)))
             {
-                modelBuilder.Entity<AppRole>().HasData(new AppRole { Id = (int)role, Name = role.ToString() });
+                modelBuilder.Entity<AppRole>().HasData(
+                    new AppRole { 
+                        Id = (int)role, 
+                        Name = role.ToString(),
+                        NormalizedName = role.ToString().ToUpper()
+                    });
             }
 
             var hasher = new PasswordHasher<IdentityUser>();

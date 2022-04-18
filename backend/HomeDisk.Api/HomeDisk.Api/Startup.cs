@@ -23,6 +23,9 @@ using HomeDisk.Api.Infrastructure.Validation;
 using HomeDisk.Api.Infrastructure.ErrorHandling;
 using HomeDisk.Api.Infrastructure.Filters;
 using HomeDisk.Api.Common.Access;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using HomeDisk.Api.Controllers.Mappings;
 
 namespace HomeDisk.Api
 {
@@ -88,6 +91,11 @@ namespace HomeDisk.Api
                 config.Filters.Add(new AuthorizeFilter(policy));
                 config.Filters.Add(new AuthenticationFilter());
             })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            })
             .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddSwaggerGen(c =>
@@ -102,6 +110,9 @@ namespace HomeDisk.Api
             services.AddValidatorsFromAssembly(typeof(LoginCommand).Assembly);
 
             services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IUserService, UserService>();
+
+            services.AddAutoMapper(typeof(PresentationMappingProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

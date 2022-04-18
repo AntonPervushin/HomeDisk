@@ -50,14 +50,16 @@ namespace HomeDisk.Api.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "1d5fcaf5-4fac-469d-b2c5-b5e9a01fc57f",
-                            Name = "Admin"
+                            ConcurrencyStamp = "a8bbe285-0f94-49ae-99cf-c92f84ad60d2",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "134c0f7a-1ea5-4409-a805-96c97e3cd435",
-                            Name = "User"
+                            ConcurrencyStamp = "dc441c20-eabe-4111-89d9-7959860554ae",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -131,13 +133,13 @@ namespace HomeDisk.Api.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "67d906a6-2ffa-4071-bff9-19aa395450fa",
+                            ConcurrencyStamp = "bd1e6080-46e7-45d1-82bf-525b2e24dd12",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBS8rbungIwWQegwbYSmKH039CcXzo0XtaMdKPO1LnVZvT6KdwA/0p/SZ2Vj6DePfA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECBBTz32SCmNGi1byoxfE5Fx0ITyC9DUitii4YMO76DgWxkNJoq/HV1sDFEk+E23hQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b88f0ee4-101b-4ad6-9c42-ea3541cad1ed",
+                            SecurityStamp = "e782ad56-4457-41f1-af05-fb60b3369aab",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
