@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeDisk.Api", "HomeDisk.Api\HomeDisk.Api.csproj", "{C9612349-424C-4CD1-A3E5-C0E5F4CAD887}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeDisk.Api.Common", "HomeDisk.Api.Identity\HomeDisk.Api.Common.csproj", "{94E3B8D3-7530-443A-A00D-C93AB2333678}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeDisk.Api.Common", "HomeDisk.Api.Identity\HomeDisk.Api.Common.csproj", "{94E3B8D3-7530-443A-A00D-C93AB2333678}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeDisk.Api.Commands", "HomeDisk.Api.Commands\HomeDisk.Api.Commands.csproj", "{B24DCA7A-BF25-4BFB-B463-57F3B6B2ECF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeDisk.Api.Commands", "HomeDisk.Api.Commands\HomeDisk.Api.Commands.csproj", "{B24DCA7A-BF25-4BFB-B463-57F3B6B2ECF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeDisk.Test", "HomeDisk.Test\HomeDisk.Test.csproj", "{070D83A5-2DB4-422B-85BD-0D87070C7BA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{B24DCA7A-BF25-4BFB-B463-57F3B6B2ECF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B24DCA7A-BF25-4BFB-B463-57F3B6B2ECF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B24DCA7A-BF25-4BFB-B463-57F3B6B2ECF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{070D83A5-2DB4-422B-85BD-0D87070C7BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{070D83A5-2DB4-422B-85BD-0D87070C7BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{070D83A5-2DB4-422B-85BD-0D87070C7BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{070D83A5-2DB4-422B-85BD-0D87070C7BA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
