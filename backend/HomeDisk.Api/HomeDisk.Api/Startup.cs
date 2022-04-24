@@ -26,6 +26,7 @@ using HomeDisk.Api.Common.Access;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using HomeDisk.Api.Controllers.Mappings;
+using HomeDisk.Api.Common.FileProcessing;
 
 namespace HomeDisk.Api
 {
@@ -111,6 +112,7 @@ namespace HomeDisk.Api
 
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddSingleton(new FileManager(new FileStorage(), @"d:\temp"));
 
             services.AddAutoMapper(typeof(PresentationMappingProfile));
         }
@@ -126,7 +128,10 @@ namespace HomeDisk.Api
             }
 
             app.UseHttpsRedirection();
-
+            app.Use(async (context, next) => {
+                context.Request.EnableBuffering();
+                await next();
+            });
             app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseRouting();

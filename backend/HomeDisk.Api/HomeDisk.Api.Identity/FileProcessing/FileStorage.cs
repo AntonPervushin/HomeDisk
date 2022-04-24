@@ -16,6 +16,8 @@ namespace HomeDisk.Api.Common.FileProcessing
 
         public void Save(string fullPath, byte[] content)
         {
+            var file = new FileInfo(fullPath);
+            file.Directory.Create();
             File.WriteAllBytes(fullPath, content);
         }
     }
