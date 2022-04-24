@@ -8,11 +8,8 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,55 +26,8 @@ namespace HomeDisk.Api.Controllers
             _mediator = mediator;
         }
 
-        //[HttpPost]
-        //[Roles(AppIdentityRole.Admin)]
-        //[Route("upload")]
-        //[DisableFormValueModelBinding]
-        ////[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> UploadFileAsync(
-        //    IFormFile uploadedFile,
-        //    CancellationToken cancellationToken)
-        //{
-
-        //    if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
-        //    {
-        //        return BadRequest($"Expected a multipart request, but got {Request.ContentType}");
-        //    }
-
-        //    if (Request.Form.Files.Count > 1)
-        //        return BadRequest("Multiple files upload is not supported.");
-
-        //    var boundary = MultipartRequestHelper.GetBoundary(
-        //        MediaTypeHeaderValue.Parse(Request.ContentType),
-        //        FormOptions.DefaultMultipartBoundaryLengthLimit);
-
-        //    var file = Request.Form.Files[0];
-        //    using (Stream stream = file.OpenReadStream())
-        //    {
-        //        using var ms = new MemoryStream();
-        //        await stream.CopyToAsync(ms);
-        //        ms.Position = 0;
-        //        var reader = new MultipartReader(boundary, ms);
-        //        var section = await reader.ReadNextSectionAsync();
-
-        //        if (!ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out var contentDisposition))
-        //            return BadRequest("Section has no content disposition header.");
-
-        //        if (!MultipartRequestHelper.HasFileContentDisposition(contentDisposition))
-        //            return BadRequest("Section has no file content disposition.");
-
-        //        var fileName = contentDisposition.FileName.Value;
-        //        var uploadCommand = new UploadFilesCommand(fileName, ((MemoryStream)section.Body).ToArray());
-        //        await _mediator.Send(uploadCommand, cancellationToken);
-        //    }
-
-        //    return Ok();
-        //}
-
-
-        [HttpPost]
-        [Roles(AppIdentityRole.Admin)]
-        [Route("upload")]
+        [HttpPost("upload")]
+        [Roles(new[] { AppIdentityRole.Admin, AppIdentityRole.User })]
         [DisableFormValueModelBinding]
         public async Task<IActionResult> UploadFileAsync(
             IFormFile uploadedFile,

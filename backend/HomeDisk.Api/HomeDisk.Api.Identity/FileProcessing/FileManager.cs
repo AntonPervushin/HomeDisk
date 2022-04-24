@@ -19,35 +19,37 @@ namespace HomeDisk.Api.Common.FileProcessing
         public void Save(string userName, string fileName, byte[] fileContent)
         {
             var fullPath = Path.Combine(_rootPath, userName, fileName);
-            if(!_fileStorage.Exists(fullPath))
+            SaveInternal(fullPath, fullPath, fileContent, 0);
+        }
+
+        private void SaveInternal(string originalfullPath, string fullPath, byte[] fileContent, int index)
+        {
+            if (index >= MaxNameDuplicatesCount)
+            {
+                throw new InvalidOperationException("MaxNameDuplicatesCount exceeded");
+            }
+
+            if (!_fileStorage.Exists(fullPath))
             {
                 _fileStorage.Save(fullPath, fileContent);
                 return;
             }
-            else if(!IsHashSame(fileContent, fullPath))
+
+            index++;
+            var nextFileName = GetNextFileName(originalfullPath, index);
+            if(!IsHashSame(fileContent, fullPath))
             {
-                var uniqueFileName = GetUniqueFileName(fullPath);
-                _fileStorage.Save(uniqueFileName, fileContent);
+                SaveInternal(originalfullPath, nextFileName, fileContent, index);
             }
         }
 
-        private string GetUniqueFileName(string existFilePath)
+        private string GetNextFileName(string fullPath, int index)
         {
-            string dir = Path.GetDirectoryName(existFilePath);
-            string fileName = Path.GetFileNameWithoutExtension(existFilePath);
-            string fileExt = Path.GetExtension(existFilePath);
+            string dir = Path.GetDirectoryName(fullPath);
+            string fileName = Path.GetFileNameWithoutExtension(fullPath);
+            string fileExt = Path.GetExtension(fullPath);
 
-            for (int i = 1; ; ++i)
-            {
-                if(i > MaxNameDuplicatesCount)
-                {
-                    throw new InvalidOperationException("MaxNameDuplicatesCount exceeded");
-                }
-                if (!_fileStorage.Exists(existFilePath))
-                    return existFilePath;
-
-                existFilePath = Path.Combine(dir, fileName + " (" + i + ")" + fileExt);
-            }
+            return Path.Combine(dir, fileName + " (" + index + ")" + fileExt);
         }
 
         private bool IsHashSame(byte[] fileToSave, string existFileFullPath)

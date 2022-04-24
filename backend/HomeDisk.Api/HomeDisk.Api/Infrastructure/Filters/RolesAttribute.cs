@@ -23,14 +23,23 @@ namespace HomeDisk.Api.Infrastructure.Filters
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            var hasRole = false;
             foreach(var role in _roles)
             {
-                if (!AppIdentityAccessor.Current.Roles.Contains(role))
+                if (AppIdentityAccessor.Current.Roles.Contains(role))
                 {
-                    throw new AuthorizationException($"The current user has no role '{ role }'");
+                    hasRole = true;
+                    break;
                 }
             }
             
+            if(!hasRole)
+            {
+                var roles = string.Join(',', _roles.Select(x => x.ToString()));
+
+                throw new AuthorizationException($"The current user has no any of roles '{roles}'");
+            }
+
             base.OnActionExecuting(context);
         }
     }

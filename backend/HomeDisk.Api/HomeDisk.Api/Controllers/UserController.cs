@@ -24,9 +24,8 @@ namespace HomeDisk.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [Roles(AppIdentityRole.Admin)]
-        [Route("create")]
         public async Task<CreateUserResponseDto> CreateAsync(
             [FromBody] CreateUserRequestDto request,
             CancellationToken cancellationToken)

@@ -20,18 +20,16 @@ namespace HomeDisk.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("login")]
         [AllowAnonymous]
-        [Route("login")]
         public async Task LoginAsync([FromBody] AuthDto request, CancellationToken cancellationToken)
         {
             var command = new LoginCommand(request.Login, request.Password);
             await _mediator.Send(command, cancellationToken);
 		}
 
-        [HttpPost]
+        [HttpPost("logout")]
         [AllowAnonymous]
-        [Route("logout")]
         public async Task LogoutAsync(CancellationToken cancellationToken)
         {
             var command = new LogoutCommand();

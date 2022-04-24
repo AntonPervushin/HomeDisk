@@ -69,6 +69,34 @@ namespace HomeDisk.Test.FileTests
         }
 
         [Test]
+        public void ExistFileWithAnotherSecondContent_NotSaved()
+        {
+            // Assert
+            var fileName = "File";
+            var fileContent1 = Fixture.ProvideRandomContent();
+            var fixture = new Fixture();
+            fixture.FileManager.Save("", fileName, fileContent1);
+
+            var before = fixture.FileStorage.GetFile(fileName);
+
+            // Act
+            var fileContent2 = Fixture.ProvideRandomContent();
+            fixture.FileManager.Save("", fileName, fileContent2);
+            var desiredNewFileName = fileName + " (1)";
+            var after = fixture.FileStorage.GetFile(desiredNewFileName);
+
+            fixture.FileManager.Save("", fileName, fileContent2);
+            var desiredNewFileName2 = fileName + " (2)";
+            var after2 = fixture.FileStorage.GetFile(desiredNewFileName2);
+
+            // Assert
+            Assert.AreSame(before, fileContent1);
+            Assert.AreSame(after, fileContent2);
+            Assert.AreNotEqual(before, after);
+            Assert.IsNull(after2);
+        }
+
+        [Test]
         public void ExceedMaxNameDuplicatesCount_ThowException()
         {
             Assert.Throws<InvalidOperationException>(() =>
