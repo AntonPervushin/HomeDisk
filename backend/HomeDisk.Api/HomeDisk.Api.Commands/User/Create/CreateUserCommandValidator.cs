@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace HomeDisk.Api.Commands.User
+namespace HomeDisk.Api.Commands.User.Create
 {
     public sealed class CreateUserCommandValidator
         : AbstractValidator<CreateUserCommand>

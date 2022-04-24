@@ -3,7 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HomeDisk.Api.Commands.User
+namespace HomeDisk.Api.Commands.User.Create
 {
     public sealed class CreateUserCommandHandler
         : IRequestHandler<CreateUserCommand, string>

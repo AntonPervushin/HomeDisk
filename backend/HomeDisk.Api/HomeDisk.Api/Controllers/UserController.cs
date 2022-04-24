@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using HomeDisk.Api.Commands.User;
+using HomeDisk.Api.Commands.User.ChangePassword;
+using HomeDisk.Api.Commands.User.Create;
 using HomeDisk.Api.Common.Identity;
 using HomeDisk.Api.Controllers.Dtos.User;
 using HomeDisk.Api.Infrastructure.Filters;
@@ -38,6 +40,18 @@ namespace HomeDisk.Api.Controllers
             {
                 Password = password
             };
+        }
+
+        [HttpPost("changePasword")]
+        [Roles(new[] { AppIdentityRole.Admin, AppIdentityRole.User })]
+        public async Task<IActionResult> ChangePasswordAsync(
+        [FromBody] ChangeUserPasswordRequestDto request,
+        CancellationToken cancellationToken)
+        {
+            var command = new ChangeUserPasswordCommand(request.CurrentPassword, request.NewPassword);
+            await _mediator.Send(command, cancellationToken);
+
+            return Ok();
         }
     }
 }

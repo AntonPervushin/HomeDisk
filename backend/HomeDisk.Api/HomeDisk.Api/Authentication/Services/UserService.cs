@@ -49,6 +49,23 @@ namespace HomeDisk.Api.Authentication.Services
             return password;
         }
 
+        public async Task ChangePasswordAsync(string userName, string currentPassword, string newPassword)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if (user == null)
+            {
+                throw new BusinessException($"User '{userName}' is not found");
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+
+            if(!result.Succeeded)
+            {
+                var errors = string.Join(',', result.Errors.Select(e => e.Description));
+                throw new BusinessException($"Can not change user '{userName}' password. Errors: {errors}");
+            }
+        }
+
 
         private string GeneratePassword()
         {

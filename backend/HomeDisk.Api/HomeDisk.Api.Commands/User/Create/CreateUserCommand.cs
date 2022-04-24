@@ -2,7 +2,7 @@
 using MediatR;
 using System.Collections.Generic;
 
-namespace HomeDisk.Api.Commands.User
+namespace HomeDisk.Api.Commands.User.Create
 {
     public sealed class CreateUserCommand : IRequest<string>
     {
